@@ -5,6 +5,7 @@ let msgContainer = document.querySelector(".msg-container");
 let msg = document.querySelector("#msg");
 
 let turnO = true;
+let count = 0;
 
 const winPartterns = [
     [0,1,2],
@@ -33,10 +34,21 @@ boxes.forEach((box)=>{
             turnO = true;
         }
         box.disabled = true;
+        count++;
 
-        checkWinner();
+        let isWInner = checkWinner();
+
+        if(count == 9 && !isWInner){
+            gameDraw();
+        }
     });
 });
+
+const gameDraw = () =>{
+    msg.innerText = `Oops! The Game is Draw..`;
+    msgContainer.classList.remove("hide");
+    disabledBoxes();
+}
 
 const disabledBoxes = () =>{
     for(let box of boxes){
